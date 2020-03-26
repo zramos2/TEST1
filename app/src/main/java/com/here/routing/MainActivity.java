@@ -26,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.here.sdk.mapviewlite.MapScene;
 import com.here.sdk.mapviewlite.MapStyle;
 import com.here.sdk.mapviewlite.MapViewLite;
@@ -37,15 +39,19 @@ public class MainActivity extends AppCompatActivity {
     private PermissionsRequestor permissionsRequestor;
     private MapViewLite mapView;
     private RoutingExample routingExample;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Get a MapView instance from layout.
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         handleAndroidPermissions();
     }
