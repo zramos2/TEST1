@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         handleAndroidPermissions();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void handleAndroidPermissions() {

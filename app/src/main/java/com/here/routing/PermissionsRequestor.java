@@ -65,9 +65,12 @@ public class PermissionsRequestor {
             PackageInfo packageInfo = activity.getPackageManager().getPackageInfo(
                     activity.getPackageName(), PackageManager.GET_PERMISSIONS);
             if (packageInfo.requestedPermissions != null) {
-                for (String permission : packageInfo.requestedPermissions) {
-                    if (ContextCompat.checkSelfPermission(
-                            activity, permission) != PackageManager.PERMISSION_GRANTED) {
+                for (String permission : packageInfo.requestedPermissions) {                        //packageInfo.requestedPermissions = android.permission.INTERNET; android.permission.ACCESS_NETWORK_STATE; android.permission.ACCESS_COARSE_LOCATION; ...
+                    if (ContextCompat.checkSelfPermission(                                          //checks user if they have permission
+                            activity, permission) != PackageManager.PERMISSION_GRANTED) {           //if user does NOT have permission
+
+                        //Permission is NOT granted
+                        //if user does NOT have permission, the app has to explicitly ask the user for permission
                         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M &&
                                 permission.equals(Manifest.permission.CHANGE_NETWORK_STATE)) {
                             // Exclude CHANGE_NETWORK_STATE as it does not require explicit user approval.
