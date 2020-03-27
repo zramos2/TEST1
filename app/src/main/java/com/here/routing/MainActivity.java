@@ -69,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
                             // Logic to handle location object
                             Double latitude = location.getLatitude();
                             Double longitude = location.getLongitude();
-                            
+
                             Log.e("Last known location", "Latitude = " + latitude + "\nLongitude = " + longitude);
+                            Log.d("Last known location: ", "Latitude = " + latitude + "\nLongitude = " + longitude);
+
                         }
                     }
                 });
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRouteButtonClicked(View view) {
+        fetchLocation();
         routingExample.addRoute();
     }
 
