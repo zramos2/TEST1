@@ -19,6 +19,7 @@
 
 package com.here.routing;
 
+import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.here.sdk.mapviewlite.MapScene;
 import com.here.sdk.mapviewlite.MapStyle;
 import com.here.sdk.mapviewlite.MapViewLite;
@@ -54,6 +56,24 @@ public class MainActivity extends AppCompatActivity {
 
         handleAndroidPermissions();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLocation();
+    }
+
+    private void fetchLocation() {
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            Double latitude = location.getLatitude();
+                            Double longitude = location.getLongitude();
+                            
+                            Log.e("Last known location", "Latitude = " + latitude + "\nLongitude = " + longitude);
+                        }
+                    }
+                });
     }
 
     private void handleAndroidPermissions() {
