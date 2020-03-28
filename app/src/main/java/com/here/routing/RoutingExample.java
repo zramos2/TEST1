@@ -265,7 +265,8 @@ public class RoutingExample {
     public void addRoute() {
         clearMap();
 
-        startGeoCoordinates = createRandomGeoCoordinatesInViewport();                   //TODO2
+        //startGeoCoordinates = createRandomGeoCoordinatesInViewport();                   //TODO2
+        startGeoCoordinates = lastKnownLocation;
         destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();             //TODO2
         Waypoint startWaypoint = new Waypoint(startGeoCoordinates);
         //Waypoint destinationWaypoint = new Waypoint(destinationGeoCoordinates);
@@ -490,6 +491,7 @@ public class RoutingExample {
         double lon = getRandom(minLon, maxLon);
 
         return new GeoCoordinates(lat, lon);
+        //return lastKnownLocation;
     }
 
     private double getRandom(double min, double max) {
