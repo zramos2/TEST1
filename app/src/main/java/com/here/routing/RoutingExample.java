@@ -462,13 +462,14 @@ public class RoutingExample {
         mapPolylines.clear();
     }
 
-/*      TODO
-    private GeoCoordinates lastKnownLocation() {
+//TODO
+    public GeoCoordinates lastKnownLocation(double latitude, double longitude) {
+        double lat = latitude;
+        double lon = longitude;
 
-
-        return new GeoCoordinates();
+        return new GeoCoordinates(lat, lon);
     }
-*/
+
 
 
     //This function makes a RANDOMLY generates coordinate

@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addRouteButtonClicked(View view) {
         fetchLocation();
+        routingExample.lastKnownLocation(lastKnownLocation.latitude, lastKnownLocation.longitude);
         routingExample.addRoute();
     }
 
