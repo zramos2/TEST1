@@ -298,7 +298,7 @@ public class RoutingExample {
                 for (GeocodingResult geocodingResult : list) {
                     GeoCoordinates geoCoordinates = geocodingResult.coordinates;
                     Address address = geocodingResult.address;
-                    destinationGeoCoordinates = geoCoordinates;
+                    destinationGeoCoordinates = geoCoordinates;             //destination is 750 S Halsted St
 
                     if (address != null) {
                         String locationDetails = address.addressText
