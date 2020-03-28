@@ -84,6 +84,7 @@ public class RoutingExample {
     private GeoCoordinates destinationGeoCoordinates;   //This is where you want to go
     private GeocodingEngine geocodingEngine;
     private Camera camera;
+    public GeoCoordinates lastKnownLocation;
 
 
 
@@ -463,11 +464,12 @@ public class RoutingExample {
     }
 
 //TODO
-    public GeoCoordinates lastKnownLocation(double latitude, double longitude) {
+    public void saveLocation(double latitude, double longitude) {
         double lat = latitude;
         double lon = longitude;
+        lastKnownLocation = new GeoCoordinates(latitude, longitude);
+        showDialog("Last known location: ", "Latitude = " + latitude + "\nLongitude = " + longitude);
 
-        return new GeoCoordinates(lat, lon);
     }
 
 

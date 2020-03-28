@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private MapViewLite mapView;
     private RoutingExample routingExample;
     private FusedLocationProviderClient fusedLocationClient;
-    private GeoCoordinates lastKnownLocation;
+    public GeoCoordinates lastKnownLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         handleAndroidPermissions();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        fetchLocation();
     }
 
     private void fetchLocation() {
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
                             lastKnownLocation = new GeoCoordinates(latitude, longitude);
 
-                            Log.e("Last known location", "Latitude = " + latitude + "\nLongitude = " + longitude);
                             Log.d("Last known location: ", "Latitude = " + latitude + "\nLongitude = " + longitude);
 
                         }
@@ -122,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRouteButtonClicked(View view) {
-        fetchLocation();
-        routingExample.lastKnownLocation(lastKnownLocation.latitude, lastKnownLocation.longitude);
+        //fetchLocation();
+        routingExample.saveLocation(lastKnownLocation.latitude, lastKnownLocation.longitude);
         routingExample.addRoute();
     }
 
