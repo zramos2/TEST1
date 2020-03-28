@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
+
 import com.here.sdk.core.CustomMetadataValue;
 import com.here.sdk.core.GeoBox;
 import com.here.sdk.core.GeoCoordinates;
@@ -65,14 +66,6 @@ import com.here.sdk.searchcommon.Address;
 import com.here.sdk.core.Metadata;
 import com.here.sdk.core.Anchor2D;
 
-
-
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -91,6 +84,8 @@ public class RoutingExample {
     private GeoCoordinates destinationGeoCoordinates;   //This is where you want to go
     private GeocodingEngine geocodingEngine;
     private Camera camera;
+
+
 
 
 
@@ -114,6 +109,7 @@ public class RoutingExample {
         }
 
         setTapGestureHandler();
+
 
     }
 
@@ -465,6 +461,14 @@ public class RoutingExample {
         }
         mapPolylines.clear();
     }
+
+/*      TODO
+    private GeoCoordinates lastKnownLocation() {
+
+
+        return new GeoCoordinates();
+    }
+*/
 
 
     //This function makes a RANDOMLY generates coordinate
