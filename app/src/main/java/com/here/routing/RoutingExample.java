@@ -265,9 +265,9 @@ public class RoutingExample {
     public void addRoute() {
         clearMap();
 
-        //startGeoCoordinates = createRandomGeoCoordinatesInViewport();                   //TODO2
+        //startGeoCoordinates = createRandomGeoCoordinatesInViewport();
         startGeoCoordinates = lastKnownLocation;
-        destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();             //TODO2
+        destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();
         Waypoint startWaypoint = new Waypoint(startGeoCoordinates);
         //Waypoint destinationWaypoint = new Waypoint(destinationGeoCoordinates);
 
@@ -278,7 +278,7 @@ public class RoutingExample {
         GeocodingOptions geocodingOptions = new GeocodingOptions(
                 LanguageCode.EN_US, maxResultCount);
 
-        String queryString = "750 S Halsted St";
+        String queryString = "750 S Halsted St";        //this is what I want destinationGeoCoordinates to be
 
 
         geocodingEngine.searchLocations(geoBox, queryString, geocodingOptions, new GeocodingCallback()
@@ -464,10 +464,8 @@ public class RoutingExample {
         mapPolylines.clear();
     }
 
-//TODO
+
     public void saveLocation(double latitude, double longitude) {
-        double lat = latitude;
-        double lon = longitude;
         lastKnownLocation = new GeoCoordinates(latitude, longitude);
         showDialog("Last known location: ", "Latitude = " + latitude + "\nLongitude = " + longitude);
 
