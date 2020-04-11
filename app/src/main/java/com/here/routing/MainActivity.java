@@ -19,12 +19,19 @@
 
 package com.here.routing;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private RoutingExample routingExample;
     private FusedLocationProviderClient fusedLocationClient;
     public GeoCoordinates lastKnownLocation;
+    public String finalLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +65,53 @@ public class MainActivity extends AppCompatActivity {
 
 
         handleAndroidPermissions();
+        handleIntent(getIntent());
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
+
+
     }
 
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            query = finalLocation;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_icon).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            //Called when the user submits the query. This could be due to a key press on
+            // the keyboard or due to pressing a submit button.
+            //https://developer.android.com/reference/android/widget/SearchView.OnQueryTextListener#onQueryTextSubmit(java.lang.String)
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                routingExample.getFinalLocation(query);
+                routingExample.geocodeAnAddress();
+                return true;    //by returning true to indicate that it has handled the submit request.
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+
+    //This function gets the last known location
     private void fetchLocation() {
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -80,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     public GeoCoordinates getLastKnownLocation() {
         return lastKnownLocation;
@@ -124,6 +176,10 @@ public class MainActivity extends AppCompatActivity {
         //fetchLocation();
         routingExample.saveLocation(lastKnownLocation.latitude, lastKnownLocation.longitude);
         routingExample.addRoute();
+    }
+
+    public void destinationButtonClicked(View view) {
+        routingExample.onGeocodeButtonClicked();
     }
 
     public void addWaypointsButtonClicked(View view) {

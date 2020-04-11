@@ -86,6 +86,10 @@ public class RoutingExample {
     private Camera camera;
     public GeoCoordinates lastKnownLocation;
 
+    public GeoCoordinates destCoordinates;
+
+    public String finalLocation;
+
 
 
 
@@ -114,16 +118,21 @@ public class RoutingExample {
 
     }
 
+    public void getFinalLocation(String s) {
+        finalLocation = s;
+        showDialog("The final location: ", "The final location: "+finalLocation);
+    }
+
     public void onGeocodeButtonClicked() {
         // Search for the location that belongs to an address and show it on the map.
         geocodeAnAddress();
     }
 
-    private void geocodeAnAddress() {
+    public void geocodeAnAddress() {
         // Set map to expected location.
-        camera.setTarget(new GeoCoordinates(41.871657, -87.647428));        //this coordinate = Jane Addams Hull House Museum
+        //camera.setTarget(new GeoCoordinates(41.871657, -87.647428));        //this coordinate = Jane Addams Hull House Museum
 
-        String streetName = "750 S Halsted St";
+        String streetName = finalLocation;
 
         Toast.makeText(context,"Finding locations in viewport for: " + streetName
                 + ". Tap marker to see the coordinates. Check the logs for the address.", Toast.LENGTH_LONG).show();
@@ -169,9 +178,14 @@ public class RoutingExample {
                                 ": " + locationDetails);
                         addPoiMapMarker(geoCoordinates);
                     }
+                    destCoordinates = geoCoordinates;
                 }
-
-                showDialog("Geocoding result","Size: " + list.size());
+                //Syntax of how to get the coordinates of the destination location's coordinates
+                //GeocodingResult test = list.get(0);
+                //GeoCoordinates test1 = test.coordinates;
+                //test1.latitude   OR test1.longitude
+                destCoordinates = list.get(0).coordinates;
+                showDialog("How many in the list: ", "Size: "+ destCoordinates.latitude+ destCoordinates.longitude);
             }
         });
     }
@@ -267,7 +281,8 @@ public class RoutingExample {
 
         //startGeoCoordinates = createRandomGeoCoordinatesInViewport();
         startGeoCoordinates = lastKnownLocation;
-        destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();
+        //destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();
+        destinationGeoCoordinates = destCoordinates;
         Waypoint startWaypoint = new Waypoint(startGeoCoordinates);
         //Waypoint destinationWaypoint = new Waypoint(destinationGeoCoordinates);
 
@@ -275,44 +290,9 @@ public class RoutingExample {
 
         GeoBox geoBox = mapView.getCamera().getBoundingRect();
         long maxResultCount = 30;
-        GeocodingOptions geocodingOptions = new GeocodingOptions(
-                LanguageCode.EN_US, maxResultCount);
-
-        String queryString = "750 S Halsted St";        //this is what I want destinationGeoCoordinates to be
+        GeocodingOptions geocodingOptions = new GeocodingOptions(LanguageCode.EN_US, maxResultCount);
 
 
-        geocodingEngine.searchLocations(geoBox, queryString, geocodingOptions, new GeocodingCallback()
-        {
-            @Override
-            public void onSearchCompleted(@Nullable SearchError searchError, @Nullable List<GeocodingResult> list)
-            {
-                if (searchError != null) {
-                    showDialog("Geocoding", "Error: " + searchError.toString());
-                    return;
-                }
-                if (list.isEmpty()) {
-                    showDialog("Geocoding", "No geocoding results found.");
-                    return;
-                }
-
-                for (GeocodingResult geocodingResult : list) {
-                    GeoCoordinates geoCoordinates = geocodingResult.coordinates;
-                    Address address = geocodingResult.address;
-                    //destination is 750 S Halsted St
-                    destinationGeoCoordinates = geoCoordinates;
-
-                    if (address != null) {
-                        String locationDetails = address.addressText
-                                + ". GeoCoordinates: " + geoCoordinates.latitude
-                                + ", " + geoCoordinates.longitude;
-
-                        Log.d(TAG, "GeocodingResult: " + locationDetails);
-                        addPoiMapMarker(geoCoordinates);
-                    }
-                }
-                    showDialog("Geocoding result","Size: " + list.size());
-            }
-        });
 
 /*
         System.out.println(list.get(0));
