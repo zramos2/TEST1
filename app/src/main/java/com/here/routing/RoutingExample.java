@@ -120,7 +120,6 @@ public class RoutingExample {
 
     public void getFinalLocation(String s) {
         finalLocation = s;
-        showDialog("The final location: ", "The final location: "+finalLocation);
     }
 
     public void onGeocodeButtonClicked() {
@@ -181,11 +180,7 @@ public class RoutingExample {
                     destCoordinates = geoCoordinates;
                 }
                 //Syntax of how to get the coordinates of the destination location's coordinates
-                //GeocodingResult test = list.get(0);
-                //GeoCoordinates test1 = test.coordinates;
-                //test1.latitude   OR test1.longitude
                 destCoordinates = list.get(0).coordinates;
-                showDialog("How many in the list: ", "Size: "+ destCoordinates.latitude+ destCoordinates.longitude);
             }
         });
     }
@@ -284,22 +279,6 @@ public class RoutingExample {
         //destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();
         destinationGeoCoordinates = destCoordinates;
         Waypoint startWaypoint = new Waypoint(startGeoCoordinates);
-        //Waypoint destinationWaypoint = new Waypoint(destinationGeoCoordinates);
-
-        //List<GeocodingResult> list = new ArrayList<GeocodingResult>();
-
-        GeoBox geoBox = mapView.getCamera().getBoundingRect();
-        long maxResultCount = 30;
-        GeocodingOptions geocodingOptions = new GeocodingOptions(LanguageCode.EN_US, maxResultCount);
-
-
-
-/*
-        System.out.println(list.get(0));
-//        GeocodingResult geocodingResult = list.;
-//        GeoCoordinates geoCoordinates = geocodingResult.coordinates;    //coordinates of 750 s halsted
-*/
-
         Waypoint destinationWaypoint = new Waypoint(destinationGeoCoordinates);
 
         List<Waypoint> waypoints =
