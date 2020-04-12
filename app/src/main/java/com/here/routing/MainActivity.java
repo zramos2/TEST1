@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 routingExample.saveLocation(lastKnownLocation.latitude, lastKnownLocation.longitude);       //gets last known location (current location)
                 routingExample.getFinalLocation(query);                                                     //gets destination location
                 routingExample.geocodeAnAddress();                                                          //searches for the destination location
-                //routingExample.addRoute();                                                                  //gives the route
                 return true;    //by returning true to indicate that it has handled the submit request.
             }
 

@@ -429,8 +429,6 @@ public class RoutingExample {
 
     public void saveLocation(double latitude, double longitude) {
         lastKnownLocation = new GeoCoordinates(latitude, longitude);
-        showDialog("Last known location: ", "Latitude = " + latitude + "\nLongitude = " + longitude);
-
     }
 
 

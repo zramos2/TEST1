@@ -37,14 +37,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
-
+<!--
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="addRouteButtonClicked"
             android:text="Add Route" />
-<!--
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
