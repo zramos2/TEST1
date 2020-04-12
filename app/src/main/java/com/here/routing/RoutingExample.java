@@ -181,8 +181,10 @@ public class RoutingExample {
                 }
                 //Syntax of how to get the coordinates of the destination location's coordinates
                 destCoordinates = list.get(0).coordinates;
+                addRoute();
             }
         });
+
     }
 
     private void setTapGestureHandler() {
@@ -272,7 +274,7 @@ public class RoutingExample {
 
 
     public void addRoute() {
-        clearMap();
+        //clearMap();
 
         //startGeoCoordinates = createRandomGeoCoordinatesInViewport();
         startGeoCoordinates = lastKnownLocation;
